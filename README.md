@@ -120,5 +120,8 @@ A project to create a HA display to mount on walls. Featuring:
 * Because OPI03 has only one usb pory (used for the screen), we need to also add a pin-connected USB port.
 * [Aliexpress link - keyboard](https://www.aliexpress.com/item/1005004085232177.html)
 * [Aliexpress link - USB port](https://www.aliexpress.com/item/1005004492194988.html)
-* Price: ~4 USD + ~3 USD = ~7 USD USD
+* Price: ~4 USD + ~3 USD = ~7 USD.
 
+# On the wall wiring diagram
+
+<img src="/images/wiring.png" />
