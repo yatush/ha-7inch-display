@@ -98,6 +98,19 @@ A project to create a HA display to mount on walls. Featuring:
 * [Aliexpress link](https://www.aliexpress.com/item/1005007055937689.html)
 * Price: ~1 USD
 
+## Outlet box
+
+<img src="/images/box.png" width="400" />
+
+* This is the outlet box I'm using.
+* Important measurements:
+  * Length: 121mm
+  * Width: 67mm
+  * Depth: 74mm
+  * Distance between screws: 108.5mm
+* For other between-screws-distance the 3d model should be modified, this should not be a problem.
+* I think this is the minimum size for the outlet box, otherwise, all the electronics will not fit in.
+
 ## (Optional) Keyboard to control the display
 
 <img src="/images/keyboard.png" width="200" /> <img src="/images/usb-female.png" width="200" />
