@@ -125,3 +125,10 @@ A project to create a HA display to mount on walls. Featuring:
 # On the wall wiring diagram
 
 <img src="/images/wiring.png" />
+
+# Installation process
+
+# Things I've tried along the way
+* The Orange Pi Zero 4 was chosen over Raspberry Pi 4 - It consumes less power, gets to lower temperature and is smaller. Performance-wise, it's weaker, but good enough to run browser smoothly with the right tweaks.
+* Temperature-wise - I've run this for over a month, and it runs ~70ºC. I never saw it goes above 77ºC.
+* The specified monitor is a good balance between price and performace. Higher resolution monitors require more CPU resources, which means hotter and more power.
