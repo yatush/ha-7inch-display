@@ -140,8 +140,8 @@ A project to create a HA display to mount on walls. Featuring:
 ## Add scripts content
 * Add the content of /scripts/kiosk.sh to ```/home/orangepi/kiosk.sh```
 * Add the content of /scripts/ld2410.py to ```/home/orangepi/ld2410.py```
-* Change the parts that need to be configured in both these scripts
-* Make sure the two files are executable
+* Change the variable values defined in the top part of ```kiosk.sh```.
+* Make sure the two files are executable:
 ```
 chmod 777 /home/orangepi/kiosk.sh
 chmod 777 /home/orangepi/ld2410.py
