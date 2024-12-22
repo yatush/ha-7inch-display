@@ -6,18 +6,15 @@ import time
 import keyboard
 import threading
 import subprocess
+import sys
+import getopt
 
-ha_url = "ADD_YOUR_HOMEASSISTANT_URL"
-sensor = "sensor.GIVE_A_NAME"
+print(str(sys.argv))
 
-# Get a token, see https://community.home-assistant.io/t/how-to-get-long-lived-access-token/162159/4 for instructions
-token = "REPLACE_THIS_WITH_THE_TOKEN"
-
-url = ha_url + "/api/states/" + sensor
-headers = {"Authorization": "Bearer " + token }
-
-# Change this to change the distance from screen the it wakes up from.
-wakeup_dist = 150 # In c"m
+sensor = sys.argv[1]
+url = sys.argv[2] + "api/states/" + sensor
+headers = {"Authorization": "Bearer " + sys.argv[3]}
+wakeup_dist = int(sys.argv[4])
 
 def request_task(url, data, headers):
   post(url, json=data, headers=headers)
