@@ -127,6 +127,8 @@ A project to create a HA display to mount on walls. Featuring:
 
 <img src="/images/wiring.png" />
 
+* ***IMPORTANT:*** There's a power input connector in the back of the screen, it has to be removed - just pull the black plastic.
+
 # Installation process
 
 ## Download and burn the Orange Pi OS(Arch) to the micro SD card
