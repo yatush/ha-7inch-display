@@ -22,6 +22,32 @@ def request_task(url, data, headers):
 def fire_and_forget(url, data, headers):
   threading.Thread(target=request_task, args=(url, data, headers)).start()
 
+def is_wifi_connected():
+  """
+  Checks if the computer is connected to a wifi network.
+
+  Returns:
+    True if connected, False otherwise.
+  """
+  try:
+    # Use nmcli to get the wifi connection status
+    output = subprocess.check_output(['nmcli', '-t', '-f', 'STATE', 'general']).decode('utf-8')
+    # Check if the output contains "connected"
+    if "connected" in output:
+      return True
+    else:
+      return False
+  except subprocess.CalledProcessError:
+    # If nmcli command fails, assume no connection
+    return False
+
+def reboot():
+  """Reboots the system."""
+  try:
+    subprocess.run(['sudo', 'reboot'])
+  except subprocess.CalledProcessError as e:
+    print(f"Error rebooting: {e}")
+
 def main():
   radar=LD2410("/dev/ttyS5", PARAM_BAUD_256000, verbosity=logging.INFO)
   fw_ver = radar.read_firmware_version()
@@ -38,6 +64,9 @@ def main():
   last_time = datetime.now()
   move_10 = False
   dist_10 = 10000
+  first_unconnected_time = datetime.now()
+  had_wifi = is_wifi_connected()
+  reboot_period = 300 if had_wifi else 3600
 
   while True:
     data = radar.get_data();
@@ -48,6 +77,16 @@ def main():
     dist_10 = min(dist_10, distance)
 
     if (now - last_time).total_seconds() > 10:
+      if not is_wifi_connected():
+        if had_wifi:
+          had_wifi = False
+          first_unconnected_time = datetime.now()
+        elif (now - first_unconnected_time).total_seconds() > reboot_period:
+          reboot()
+      else:
+        had_wifi = True
+        reboot_period = 300
+
       temp = 0
       try:
         temp = int(int(subprocess.check_output(['cat', '/sys/class/thermal/thermal_zone0/temp']))/100)/10
