@@ -22,6 +22,21 @@ def request_task(url, data, headers):
 def fire_and_forget(url, data, headers):
   threading.Thread(target=request_task, args=(url, data, headers)).start()
 
+def add_line_to_file(filename, line):
+  """Adds a line to the end of a file.
+
+  Args:
+    filename: The name of the file to add the line to.
+    line: The line to add to the file.
+  """
+  try:
+    with open(filename, 'a') as f:
+      f.write(line + '\n')
+  except FileNotFoundError:
+    print(f"Error: File '{filename}' not found.")
+  except Exception as e:
+    print(f"An error occurred: {e}")
+
 def is_wifi_connected():
   """
   Checks if the computer is connected to a wifi network.
@@ -67,6 +82,7 @@ def main():
   first_unconnected_time = datetime.now()
   had_wifi = is_wifi_connected()
   reboot_period = 300 if had_wifi else 3600
+  add_line_to_file('reboots.log', 'Start time: ' + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
   while True:
     data = radar.get_data();
@@ -81,9 +97,13 @@ def main():
         if had_wifi:
           had_wifi = False
           first_unconnected_time = datetime.now()
+          add_line_to_file('reboots.log', 'Lost wifi:' + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         elif (now - first_unconnected_time).total_seconds() > reboot_period:
+          add_line_to_file('reboots.log', 'Reboot no wifi:' + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
           reboot()
       else:
+        if not had_wifi:
+          add_line_to_file('reboots.log', 'Gained wifi:' + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         had_wifi = True
         reboot_period = 300
 
