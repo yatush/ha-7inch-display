@@ -47,11 +47,7 @@ def is_wifi_connected():
   try:
     # Use nmcli to get the wifi connection status
     output = subprocess.check_output(['nmcli', '-t', '-f', 'STATE', 'general']).decode('utf-8')
-    # Check if the output contains "connected"
-    if "connected" in output:
-      return True
-    else:
-      return False
+    return output == "connected"
   except subprocess.CalledProcessError:
     # If nmcli command fails, assume no connection
     return False
